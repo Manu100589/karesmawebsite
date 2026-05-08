@@ -330,8 +330,8 @@ const About = () => {
               />
             </div>
             <div className="absolute -bottom-8 -left-8 glass-card p-6 rounded-xl border border-brand-gold/30 max-w-[200px] z-20">
-              <div className="text-4xl font-bold font-heading text-brand-gold mb-2">5+</div>
-              <div className="text-sm text-gray-300">Années d'excellence et d'accompagnement</div>
+              <div className="text-2xl font-bold font-heading text-brand-gold mb-2 uppercase">Innovation</div>
+              <div className="text-sm text-gray-300">L'excellence au service de votre réussite</div>
             </div>
           </motion.div>
         </div>
