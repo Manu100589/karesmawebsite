@@ -627,59 +627,78 @@ const Advantages = () => {
   );
 };
 
-// --- Animated Counter for Stats ---
-const Counter = ({ from, to, isInView }: { from: number, to: number, isInView: boolean }) => {
-  const [count, setCount] = useState(from);
-  
-  useEffect(() => {
-    if (!isInView) return;
-    
-    let startTimestamp: number | null = null;
-    const duration = 2000; // 2 seconds
-    
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      
-      // Easing out cubic
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(easeOut * (to - from) + from));
-      
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
-    };
-    
-    window.requestAnimationFrame(step);
-  }, [isInView, from, to]);
-
-  return <span>{count}</span>;
-};
-
-const Stats = () => {
+// --- CTA Section ---
+const CTA = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  const stats = [
-    { value: 200, suffix: "+", label: "Entreprises accompagnées" },
-    { value: 500, suffix: "+", label: "Dossiers traités" },
-    { value: 5, suffix: " ans", label: "D'expérience" }
-  ];
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-20 border-y border-white/5 bg-brand-blue" ref={ref}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-brand-gold/20">
-          {stats.map((stat, i) => (
-            <div key={i} className="text-center pt-8 md:pt-0">
-              <div className="text-5xl lg:text-6xl font-heading font-bold text-brand-gold mb-2">
-                <Counter from={0} to={stat.value} isInView={isInView} />
-                {stat.suffix}
-              </div>
-              <div className="text-gray-300 font-medium uppercase tracking-wider text-sm">{stat.label}</div>
+    <section className="py-24 relative overflow-hidden bg-brand-blue" ref={ref}>
+      {/* Background Decorative Elements */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.05, 0.1, 0.05],
+            rotate: [0, 90, 0]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-[20%] -right-[10%] w-[60%] aspect-square rounded-full bg-brand-gold blur-[120px]" 
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            opacity: [0.05, 0.1, 0.05],
+            rotate: [0, -90, 0]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          className="absolute -bottom-[20%] -left-[10%] w-[50%] aspect-square rounded-full bg-brand-dark blur-[100px]" 
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="glass-card p-12 md:p-20 rounded-[2rem] border border-brand-gold/20 text-center relative overflow-hidden"
+        >
+          {/* Internal Glow */}
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/5 via-transparent to-transparent pointer-events-none" />
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <h2 className="text-4xl md:text-6xl font-heading font-bold text-white mb-8 leading-tight">
+              Prêt à propulser <br />
+              <span className="text-brand-gold">votre entreprise</span> au sommet ?
+            </h2>
+            <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto font-light">
+              Rejoignez les leaders qui nous font confiance pour leur structuration et leur croissance stratégique.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <a 
+                href="#contact" 
+                className="px-10 py-5 rounded-full bg-brand-gold text-brand-dark font-bold text-lg hover:bg-white hover:scale-105 transition-all transform flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+              >
+                Commencer mon projet <ArrowRight size={22} />
+              </a>
+              <a 
+                href="tel:+237680508070" 
+                className="px-10 py-5 rounded-full border border-white/20 text-white font-semibold text-lg hover:border-brand-gold hover:text-brand-gold transition-all flex items-center justify-center gap-3"
+              >
+                <Phone size={20} /> Parler à un expert
+              </a>
             </div>
-          ))}
-        </div>
+          </motion.div>
+
+          {/* Abstract background logo */}
+          <div className="absolute -bottom-10 -right-10 opacity-5 -rotate-12">
+             <Logo className="h-64" />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -891,7 +910,7 @@ export default function App() {
         <Services />
         <PinnedSection />
         <Advantages />
-        <Stats />
+        <CTA />
         <Contact />
         <Footer />
         <ScrollToTop />
