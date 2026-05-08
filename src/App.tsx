@@ -234,7 +234,7 @@ const Hero = () => {
       >
         <div className="absolute inset-0 bg-brand-dark/80 mix-blend-multiply z-10" />
         <img 
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
+          src="/hero.png" 
           alt="Premium Office" 
           className="w-full h-full object-cover scale-105"
         />
@@ -324,7 +324,7 @@ const About = () => {
             <div className="aspect-[4/5] rounded-2xl overflow-hidden relative">
               <div className="absolute inset-0 bg-brand-blue/20 mix-blend-overlay z-10" />
               <img 
-                src="https://images.unsplash.com/photo-1556761175-5973e04cf6e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                src="/about.png" 
                 alt="Business Meeting" 
                 className="w-full h-full object-cover"
               />
